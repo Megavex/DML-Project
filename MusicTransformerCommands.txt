@@ -1,0 +1,3 @@
+python MusicTransformer/train.py -c ./MusicTransformer/config/base.yml ./MusicTransformer/config/train.yml -m ./Models
+
+python MusicTransformer/preprocess.py ./Dataset/ClassicalMusicMIDI/albeniz ./Dataset/DataTensor
