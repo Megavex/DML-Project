@@ -2,7 +2,7 @@ import custom
 from custom import criterion
 from custom.layers import *
 from custom.config import config
-from model import MusicTransformer
+from our_models import MusicTransformer
 from data import Data
 import utils
 from midi_processor.processor import decode_midi, encode_midi
@@ -29,18 +29,33 @@ gen_log_dir = 'logs/mt_decoder/generate_'+current_time+'/generate'
 gen_summary_writer = SummaryWriter(gen_log_dir)
 
 mt = MusicTransformer(
+    position_embedding=config.positional,
+    relative_attention=config.relative,
     embedding_dim=config.embedding_dim,
     vocab_size=config.vocab_size,
     num_layer=config.num_layers,
     max_seq=config.max_seq,
     dropout=0,
     debug=False)
-mt.load_state_dict(torch.load(args.model_dir+'/final.pth'))
+
+
+
+model_name = config.pickle_dir.split('/')[-1]
+
+if config.positional == 'true':
+    model_name = model_name + "_P"
+    
+if config.relative == 'true':
+    model_name = model_name + "_R"
+
+mt.load_state_dict(torch.load(args.model_dir+'/model_'+model_name+'.pth'))
+
+                              
 mt.test()
 
 print(config.condition_file)
 if config.condition_file is not None:
-    inputs = np.array([encode_midi('dataset/midi/BENABD10.mid')[:500]])
+    inputs = np.array([encode_midi(condition_file)[:500]])
 else:
     inputs = np.array([[24, 28, 31]])
 inputs = torch.from_numpy(inputs)

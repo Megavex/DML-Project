@@ -1,4 +1,4 @@
-from model import MusicTransformer
+from our_models import MusicTransformer
 import custom
 from custom.metrics import *
 from custom.criterion import SmoothCrossEntropyLoss, CustomSchedule
@@ -37,6 +37,8 @@ learning_rate = config.l_r
 
 # define model
 mt = MusicTransformer(
+            position_embedding=config.positional,
+            relative_attention=config.relative,
             embedding_dim=config.embedding_dim,
             vocab_size=config.vocab_size,
             num_layer=config.num_layers,
@@ -142,7 +144,17 @@ for e in range(config.epochs):
         if config.debug:
             print('output switch time: {}'.format(sw_end - sw_start) )
 
-torch.save(single_mt.state_dict(), args.model_dir+'/final.pth'.format(idx))
+model_name = ""
+
+model_name = config.pickle_dir.split('/')[-1]
+
+if config.positional == 'true':
+    model_name = model_name + "_P"
+    
+if config.relative == 'true':
+    model_name = model_name + "_R"
+
+torch.save(single_mt.state_dict(), args.model_dir+'/model_'+model_name+'.pth'.format(idx))
 eval_summary_writer.close()
 train_summary_writer.close()
 

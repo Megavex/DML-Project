@@ -1,4 +1,4 @@
-pickle_dir: './Dataset/TrainingMIDI/mozart'
+pickle_dir: './Dataset/TrainingMIDI/asa'
 epochs: 1000
 batch_size: 8
 load_path:
