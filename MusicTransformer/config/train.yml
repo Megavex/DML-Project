@@ -1,10 +1,10 @@
-pickle_dir: './Dataset/TrainingMIDI/asa'
+pickle_dir: './Dataset/TrainingMIDI'
 epochs: 1000
 batch_size: 8
 load_path:
 dropout: 0.1
-debug: 'true'
+debug: false
 l_r: 0.001
 label_smooth: 0.
-relative: 'true'
-positional: 'true'
+relative: true
+positional: false

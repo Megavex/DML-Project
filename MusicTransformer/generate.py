@@ -42,11 +42,13 @@ mt = MusicTransformer(
 
 model_name = config.pickle_dir.split('/')[-1]
 
-if config.positional == 'true':
+if config.positional:
     model_name = model_name + "_P"
     
-if config.relative == 'true':
+if config.relative:
     model_name = model_name + "_R"
+
+print(f"Loading model {model_name}")
 
 mt.load_state_dict(torch.load(args.model_dir+'/model_'+model_name+'.pth'))
 
@@ -55,7 +57,7 @@ mt.test()
 
 print(config.condition_file)
 if config.condition_file is not None:
-    inputs = np.array([encode_midi(condition_file)[:500]])
+    inputs = np.array([encode_midi(config.condition_file)[:128]])
 else:
     inputs = np.array([[24, 28, 31]])
 inputs = torch.from_numpy(inputs)
@@ -64,6 +66,19 @@ result = mt(inputs, config.length, gen_summary_writer)
 for i in result:
     print(i)
 
-decode_midi(result, file_path=config.save_path)
+condition_file_clean = (config.condition_file.split('/')[-1]).split('.')[0]
+file_name = config.save_path + condition_file_clean
+
+if config.positional:
+    file_name = file_name + "_P"
+    
+if config.relative:
+    file_name = file_name + "_R"
+
+file_name = file_name + ".mid"
+
+print(f"Saving file {file_name}")
+
+decode_midi(result, file_path=file_name)
 
 gen_summary_writer.close()

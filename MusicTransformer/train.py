@@ -64,7 +64,7 @@ metric_set = MetricsSet({
     'bucket':  LogitsBucketting(config.vocab_size)
 })
 
-print(mt)
+# print(mt)
 print('| Summary - Device Info : {}'.format(torch.cuda.device))
 
 # define tensorboard writer
@@ -79,7 +79,7 @@ eval_summary_writer = SummaryWriter(eval_log_dir)
 print(">> Train start...")
 idx = 0
 for e in range(config.epochs):
-    print(">>> [Epoch was updated]")
+    print(f">>> [Epoch {e}]")
     for b in range(len(dataset.files) // config.batch_size):
         scheduler.optimizer.zero_grad()
         try:
@@ -116,7 +116,7 @@ for e in range(config.epochs):
             eval_preiction, weights = single_mt.forward(eval_x)
 
             eval_metrics = metric_set(eval_preiction, eval_y)
-            torch.save(single_mt.state_dict(), args.model_dir+'/train-{}.pth'.format(e))
+            # torch.save(single_mt.state_dict(), args.model_dir+'/train-{}.pth'.format(e))
             if b == 0:
                 train_summary_writer.add_histogram("target_analysis", batch_y, global_step=e)
                 train_summary_writer.add_histogram("source_analysis", batch_x, global_step=e)
@@ -148,10 +148,10 @@ model_name = ""
 
 model_name = config.pickle_dir.split('/')[-1]
 
-if config.positional == 'true':
+if config.positional:
     model_name = model_name + "_P"
     
-if config.relative == 'true':
+if config.relative:
     model_name = model_name + "_R"
 
 torch.save(single_mt.state_dict(), args.model_dir+'/model_'+model_name+'.pth'.format(idx))

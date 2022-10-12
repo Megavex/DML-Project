@@ -1,4 +1,4 @@
-save_path: 'bin/generated.mid'
-condition_file: 'Dataset/ClassicalMusicMIDI/albeniz/alb_esp1.mid'
-length: 4000
+save_path: 'bin/'
+condition_file: 'Dataset/ClassicalMusicMIDI/bach_846.mid'
+length: 512
 threshold_len: 500
