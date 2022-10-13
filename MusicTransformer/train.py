@@ -47,7 +47,7 @@ mt = MusicTransformer(
             debug=config.debug, loader_path=config.load_path
 )
 mt.to(config.device)
-opt = optim.Adam(mt.parameters(), lr=0, betas=(0.9, 0.98), eps=1e-9)
+opt = optim.Adam(mt.parameters(), lr=learning_rate, betas=(0.9, 0.98), eps=1e-9)
 scheduler = CustomSchedule(config.embedding_dim, optimizer=opt)
 
 # multi-GPU set
