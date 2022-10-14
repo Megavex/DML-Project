@@ -24,9 +24,8 @@ def preprocess_midi_files_under(midi_root, save_dir):
         except KeyboardInterrupt:
             print(' Abort')
             return
-        except EOFError:
-            print('EOF Error')
-            return
+        except:
+            continue
 
         with open('{}/{}.pickle'.format(save_dir, path.split('/')[-1]), 'wb') as f:
             pickle.dump(data, f)
