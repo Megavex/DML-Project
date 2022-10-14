@@ -42,6 +42,8 @@ mt = MusicTransformer(
 
 model_name = config.pickle_dir.split('/')[-1] + str(config.max_seq)
 
+model_name += str(config.max_seq)
+
 if config.positional:
     model_name = model_name + "_P"
     
