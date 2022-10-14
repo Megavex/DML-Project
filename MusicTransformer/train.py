@@ -154,7 +154,7 @@ if config.positional:
 if config.relative:
     model_name = model_name + "_R"
 
-torch.save(single_mt.state_dict(), args.model_dir+'/model_'+model_name+'.pth'.format(idx))
+torch.save(single_mt.state_dict(), args.model_dir+'/model_long_'+model_name+'.pth'.format(idx))
 eval_summary_writer.close()
 train_summary_writer.close()
 

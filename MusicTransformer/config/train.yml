@@ -1,10 +1,10 @@
 pickle_dir: './Dataset/TrainingMIDI'
-epochs: 200
-batch_size: 8
+epochs: 300
+batch_size: 2
 load_path:
 dropout: 0.1
 debug: false
-l_r: 0.001
-label_smooth: 0.
+l_r: 0.0001
+label_smooth: 0.1
 relative: true
 positional: true
