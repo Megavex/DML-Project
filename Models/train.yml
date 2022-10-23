@@ -1,9 +1,0 @@
-CONFIG_FILE_NAME: train.yml
-batch_size: 8
-debug: 'true'
-dropout: 0.1
-epochs: 1000
-l_r: 0.001
-label_smooth: 0.1
-load_path: null
-pickle_dir: ../Dataset/DataTensor/albeniz
